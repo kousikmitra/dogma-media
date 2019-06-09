@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <style>
+        div {
+            /* border: 1px black solid; */
+        }
+        .menu-nav{
+    
+        }
+        textarea{
+  height:20vh; 
+  min-height:20vh;  
+  max-height:20vh;
+}
+
+.post-item{
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2)
+}
+
+.profile-icon{
+    height: 2rem;
+    width: 2rem
+}
+
+input[type="file"] {
+  display: block;
+}
+.imageThumb {
+  max-height: 100px;
+  border: 0.5px solid;
+  padding: 1px;
+  cursor: pointer;
+}
+.pip {
+  display: inline-block;
+  margin: 10px 10px 0 0;
+}
+.remove {
+  display: block;
+  background: #444;
+  border: 1px solid black;
+  color: white !important;
+  text-align: center;
+  cursor: pointer;
+}
+.remove:hover {
+  background: white;
+  color: black;
+}
+    </style>
+</head>
+
+<body>
+    <div class="container-main">
+        <div class="header-section fixed-top">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand mx-5" href="#">Dogma Media</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mr-5">
+                        <li class="nav-item active">
+                            <a class="nav-link font-weight-bold" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link font-weight-bold" href="#">
+                                <img src="./images/profile-icon.png" class="profile-icon" alt=""> Profile
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle font-weight-bold" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                More
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Change Password</a>
+                                <a class="dropdown-item" href="#">Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Logout</a>
+                                <a class="dropdown-item" href="#">Contact Us</a>
+                                <a class="dropdown-item" href="#">Privacy Policy</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+            </nav>
+        </div>
+        <div class="main" style="margin-top:15vh;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-2 p-0">
+                        <i class="fa fa-trash"></i>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, nostrum perspiciatis
+                        dicta assumenda quos atque expedita officiis! Nulla neque eius incidunt excepturi sint
+                        sapiente? Ullam omnis fuga reiciendis suscipit molestias.
+                    </div>
+                    <div class="col-lg-8 p-0">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card status-update-card" style="background-color:rgba(69, 128, 238, 0.2); border-color:rgb(219, 219, 226);">
+                                        <div class="card-body">
+                                            <h4 class="card-title">Want to share something?</h4>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <form class="form">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text" id="inputGroupFileAddon00">What
+                                                                    is the title?</span>
+                                                            </div>
+                                                            <input type="teext" name="title" id="title" class="form-control"
+                                                                placeholder="" aria-describedby="inputGroupFileAddon00">
+                                                        </div>
+
+                                                        <div class="form-group mt-3">
+                                                            <!-- <div class="input-group-prepend">
+                                                                <span class="input-group-text" id="inputGroupFileAddon01">Want
+                                                                    to share something?</span>
+                                                            </div> -->
+                                                            <textarea name="status" id="status" class="form-control"
+                                                                placeholder="Write your thoughts here!"
+                                                                aria-describedby="inputGroupFileAddon01"></textarea>
+
+                                                        </div>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text" id="inputGroupFileAddon02">Want
+                                                                    to show something?</span>
+                                                            </div>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input" id="files"
+                                                                    name="files[]" aria-describedby="inputGroupFileAddon02"
+                                                                    multiple>
+                                                                <label class="custom-file-label" for="files">Choose
+                                                                    file</label>
+                                                            </div>
+                                                        </div>
+                                                        <div id="preview"></div>
+                                                        <div class="input-group-lg">
+                                                            <input type="submit" class="btn btn-primary w-100 mt-3"
+                                                                value="Update">
+                                                        </div>
+
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="posts-container">
+                                        <div class="post-item card m-3 my-3">
+                                            <div class="card-header d-flex align-items-center">
+                                                <img src="./images/profile-icon.png" class="profile-icon img-fluid rounded-circle"
+                                                    alt="">
+                                                <h5 class="font-weight-200 ml-3">user-name-is-this</h5>
+                                                <small class="ml-auto">20 seconds ago</small>
+                                            </div>
+                                            <div class="card-body p-0">
+                                                <div class="post-text m-2">
+                                                    <h4 class="card-title">Title</h4>
+                                                    <p class="card-text">Text</p>
+                                                </div>
+                                                <div class="post-imaes">
+                                                    <img src="./images/post-image.jpg" class="card-img-bottom m-0" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="card-footer text-muted">
+                                                <div class="row">
+                                                    <div class="col-4 text-center d-flex justify-content-center align-items-baseline">
+                                                        <h5><i class="fa fa-heart-o" aria-hidden="true"></i> Like</h5>
+                                                        <small class="ml-1">100</small>
+                                                    </div>
+                                                    <div class="col-4 text-center d-flex justify-content-center align-items-baseline">
+                                                        <h5><i class="fa fa-align-center" aria-hidden="true"></i>
+                                                            Comment</h5>
+                                                        <small class="ml-1">100</small>
+                                                    </div>
+                                                    <div class="col-4 text-center d-flex justify-content-center align-items-baseline">
+                                                        <h5><i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                                                            Share</h5>
+                                                        <small class="ml-1">100</small>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="post-comments">
+                                                            <ul class="list-group list-group-flush">
+                                                                <li class="list-group-item d-flex">
+                                                                    <img src="./images/profile-icon.png" class="profile-icon mr-2"
+                                                                        alt="">
+                                                                    <p>This is a comment. Lorem ipsum, dolor sit amet
+                                                                        consectetur adipisicing elit. Eos pariatur
+                                                                        tenetur
+                                                                        iste praesentium illum laborum voluptatibus ex
+                                                                        deserunt nostrum dolorum soluta quidem,
+                                                                        laboriosam
+                                                                        assumenda quasi est facilis mollitia ipsa
+                                                                        molestiae?</p>
+                                                                </li>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="post-item card m-3 my-3">
+                                            <div class="card-header d-flex align-items-center">
+                                                <img src="./images/profile-icon.png" class="profile-icon img-fluid rounded-circle"
+                                                    alt="">
+                                                <h5 class="font-weight-200 ml-3">user-name-is-this</h5>
+                                                <small class="ml-auto">20 seconds ago</small>
+                                            </div>
+                                            <div class="card-body p-0">
+                                                <div class="post-text m-2">
+                                                    <h4 class="card-title">Title</h4>
+                                                    <p class="card-text">Text</p>
+                                                </div>
+                                                <div class="post-imaes">
+                                                    <img src="./images/post-image.jpg" class="card-img-bottom m-0" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="card-footer text-muted">
+                                                <div class="row">
+                                                    <div class="col-4 text-center d-flex justify-content-center align-items-baseline">
+                                                        <h5><i class="fa fa-heart-o" aria-hidden="true"></i> Like</h5>
+                                                        <small class="ml-1">100</small>
+                                                    </div>
+                                                    <div class="col-4 text-center d-flex justify-content-center align-items-baseline">
+                                                        <h5><i class="fa fa-align-center" aria-hidden="true"></i>
+                                                            Comment</h5>
+                                                        <small class="ml-1">100</small>
+                                                    </div>
+                                                    <div class="col-4 text-center d-flex justify-content-center align-items-baseline">
+                                                        <h5><i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                                                            Share</h5>
+                                                        <small class="ml-1">100</small>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="post-comments">
+                                                            <ul class="list-group list-group-flush">
+                                                                <li class="list-group-item d-flex">
+                                                                    <img src="./images/profile-icon.png" class="profile-icon mr-2"
+                                                                        alt="">
+                                                                    <p>This is a comment. Lorem ipsum, dolor sit amet
+                                                                        consectetur adipisicing elit. Eos pariatur
+                                                                        tenetur
+                                                                        iste praesentium illum laborum voluptatibus ex
+                                                                        deserunt nostrum dolorum soluta quidem,
+                                                                        laboriosam
+                                                                        assumenda quasi est facilis mollitia ipsa
+                                                                        molestiae?</p>
+                                                                </li>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="post-item card m-3 my-3">
+                                            <div class="card-header d-flex align-items-center">
+                                                <img src="./images/profile-icon.png" class="profile-icon img-fluid rounded-circle"
+                                                    alt="">
+                                                <h5 class="font-weight-200 ml-3">user-name-is-this</h5>
+                                                <small class="ml-auto">20 seconds ago</small>
+                                            </div>
+                                            <div class="card-body p-0">
+                                                <div class="post-text m-2">
+                                                    <h4 class="card-title">Title</h4>
+                                                    <p class="card-text">Text</p>
+                                                </div>
+                                                <div class="post-imaes">
+                                                    <img src="./images/post-image.jpg" class="card-img-bottom m-0" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="card-footer text-muted">
+                                                <div class="row">
+                                                    <div class="col-4 text-center d-flex justify-content-center align-items-baseline">
+                                                        <h5><i class="fa fa-heart-o" aria-hidden="true"></i> Like</h5>
+                                                        <small class="ml-1">100</small>
+                                                    </div>
+                                                    <div class="col-4 text-center d-flex justify-content-center align-items-baseline">
+                                                        <h5><i class="fa fa-align-center" aria-hidden="true"></i>
+                                                            Comment</h5>
+                                                        <small class="ml-1">100</small>
+                                                    </div>
+                                                    <div class="col-4 text-center d-flex justify-content-center align-items-baseline">
+                                                        <h5><i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                                                            Share</h5>
+                                                        <small class="ml-1">100</small>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="post-comments">
+                                                            <ul class="list-group list-group-flush">
+                                                                <li class="list-group-item d-flex">
+                                                                    <img src="./images/profile-icon.png" class="profile-icon mr-2"
+                                                                        alt="">
+                                                                    <p>This is a comment. Lorem ipsum, dolor sit amet
+                                                                        consectetur adipisicing elit. Eos pariatur
+                                                                        tenetur
+                                                                        iste praesentium illum laborum voluptatibus ex
+                                                                        deserunt nostrum dolorum soluta quidem,
+                                                                        laboriosam
+                                                                        assumenda quasi est facilis mollitia ipsa
+                                                                        molestiae?</p>
+                                                                </li>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 p-0">
+                        <div class="known-peoples position-fixed">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">People you know!</h4>
+                                    <small class="card-text">Click to send a message</small>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item px-1">
+                                        <img src="./images/profile-icon.png" class="profile-icon mr-1" alt=""> Name 1
+                                    </li>
+                                    <li class="list-group-item px-1">
+                                        <img src="./images/profile-icon.png" class="profile-icon mr-1" alt=""> Name 1
+                                    </li>
+                                    <li class="list-group-item px-1">
+                                        <img src="./images/profile-icon.png" class="profile-icon mr-1" alt=""> Name 1
+                                    </li>
+                                    <li class="list-group-item px-1">
+                                            <img src="./images/profile-icon.png" class="profile-icon mr-1" alt=""> Name 1
+                                        </li>
+                                        <li class="list-group-item px-1">
+                                            <img src="./images/profile-icon.png" class="profile-icon mr-1" alt=""> Name 1
+                                        </li>
+                                        <li class="list-group-item px-1">
+                                            <img src="./images/profile-icon.png" class="profile-icon mr-1" alt=""> Name 1
+                                        </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    $(document).ready(function () {
+        if (window.File && window.FileList && window.FileReader) {
+            $("#files").on("change", function (e) {
+                var files = e.target.files,
+                    filesLength = files.length;
+                for (var i = 0; i < filesLength; i++) {
+                    var f = files[i]
+                    var fileReader = new FileReader();
+                    fileReader.onload = (function (e) {
+                        var file = e.target;
+                        $("<span class=\"pip\">" +
+                            "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+                            "<br/><span class=\"remove\"><button type=\"button\" class=\"btn btn-sm\"><i class=\"fa fa-trash\"></i> Remove</button></span>" +
+                            "</span>").insertAfter("#preview");
+                        $(".remove").click(function () {
+                            $(this).parent(".pip").remove();
+                        });
+                    });
+                    fileReader.readAsDataURL(f);
+                }
+            });
+        } else {
+            alert("Your browser doesn't support to File API")
+        }
+    });</script>
+
+</html>
