@@ -1,0 +1,83 @@
+div {
+    /* border: 1px black solid; */
+}
+
+.menu-nav {}
+
+textarea {
+    height: 20vh;
+    min-height: 20vh;
+    max-height: 20vh;
+}
+
+.post-item {
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2)
+}
+
+.profile-icon {
+    height: 2rem;
+    width: 2rem
+}
+
+input[type="file"] {
+    display: block;
+}
+
+.imageThumb {
+    max-height: 100px;
+    border: 0.5px solid;
+    padding: 1px;
+    cursor: pointer;
+}
+
+.pip {
+    display: inline-block;
+    margin: 10px 10px 0 0;
+}
+
+.remove {
+    display: block;
+    background: #444;
+    border: 1px solid black;
+    color: white !important;
+    text-align: center;
+    cursor: pointer;
+}
+
+.remove:hover {
+    background: white;
+    color: black;
+}
+
+a:hover{
+    text-decoration-line: none !important;
+}
+
+.user-name{
+    color: rgb(77, 73, 73);
+}
+
+.user-name:hover{
+    color: rgb(37, 36, 36);
+}
+
+.profile-photo{
+    height: 15rem;
+    width: 15rem;
+}
+
+p{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.profile-tabs{
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.tab-page{
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+    padding: 1% 3%;  
+}
+
+
