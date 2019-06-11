@@ -71,13 +71,13 @@
                                         <div class="col">
                                         <div class="profile-tabs mt-3 mb-3">
                                         <ul class="nav nav-tabs justify-content-around" role="tablist">
-                                                <li class="nav-item w-25">
+                                                <li class="nav-item text-center w-25">
                                                     <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Thoughts</a>
                                                 </li>
-                                                <li class="nav-item w-25">
+                                                <li class="nav-item text-center w-25">
                                                     <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">About</a>
                                                 </li>
-                                                <li class="nav-item w-25">
+                                                <li class="nav-item text-center w-25">
                                                     <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Photos</a>
                                                 </li>
                                             </ul>
