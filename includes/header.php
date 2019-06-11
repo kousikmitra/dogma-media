@@ -24,7 +24,7 @@
                         <a class="dropdown-item" href="#">Change Password</a>
                         <a class="dropdown-item" href="#">Settings</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Logout</a>
+                        <a class="dropdown-item" href="./logout.php">Logout</a>
                         <a class="dropdown-item" href="#">Contact Us</a>
                         <a class="dropdown-item" href="#">Privacy Policy</a>
                     </div>

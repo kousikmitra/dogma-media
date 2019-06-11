@@ -2,6 +2,11 @@ div {
     /* border: 1px black solid; */
 }
 
+.main{
+    padding-left: 1%;
+    padding-right: 5%;
+}
+
 .menu-nav {}
 
 textarea {
