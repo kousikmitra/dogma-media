@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 11, 2019 at 11:28 PM
--- Server version: 10.1.39-MariaDB
--- PHP Version: 7.3.5
+-- Host: localhost
+-- Generation Time: Jun 12, 2019 at 03:26 PM
+-- Server version: 10.3.15-MariaDB
+-- PHP Version: 7.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -37,6 +37,15 @@ CREATE TABLE `comments` (
   `comment_time` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`id`, `posts_id`, `users_id`, `comment`, `comment_date`, `comment_time`) VALUES
+(1, 5, 2, 'Nice post and beautiful images', '2019-06-12', '15:07:12'),
+(2, 5, 2, 'Darjeeling is beautiful', '2019-06-12', '16:35:50'),
+(3, 4, 2, 'nice foggy photos', '2019-06-12', '16:37:04');
+
 -- --------------------------------------------------------
 
 --
@@ -61,6 +70,13 @@ CREATE TABLE `likes` (
   `users_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `likes`
+--
+
+INSERT INTO `likes` (`id`, `posts_id`, `users_id`) VALUES
+(10, 5, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -71,12 +87,22 @@ CREATE TABLE `posts` (
   `id` int(11) NOT NULL,
   `users_id` int(11) NOT NULL,
   `post_title` text NOT NULL,
-  `post_data` text,
+  `post_data` text DEFAULT NULL,
   `post_date` date NOT NULL,
   `post_time` time NOT NULL,
-  `total_likes` int(11) NOT NULL DEFAULT '0',
-  `total_comments` int(11) NOT NULL DEFAULT '0'
+  `total_likes` int(11) NOT NULL DEFAULT 0,
+  `total_comments` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `posts`
+--
+
+INSERT INTO `posts` (`id`, `users_id`, `post_title`, `post_data`, `post_date`, `post_time`, `total_likes`, `total_comments`) VALUES
+(3, 2, 'Hello This is my first post', 'Here are some beautiful images', '2019-06-12', '14:09:22', 0, 0),
+(4, 2, 'This one is another test', 'hello here are some other images', '2019-06-12', '14:15:06', 0, 0),
+(5, 2, 'Another test', 'here is some images like', '2019-06-12', '14:22:32', 1, 2),
+(6, 2, 'test post', 'some images', '2019-06-12', '14:39:54', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -90,6 +116,16 @@ CREATE TABLE `post_images` (
   `images` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `post_images`
+--
+
+INSERT INTO `post_images` (`id`, `posts_id`, `images`) VALUES
+(1, 3, './photo_gallery/IMG_20190605_125604.jpg;./photo_gallery/IMG_20190605_125602.jpg;./photo_gallery/IMG_20190605_114350.jpg'),
+(2, 4, './photo_gallery/20190604_150434.jpg;./photo_gallery/20190604_150428.jpg'),
+(3, 5, './photo_gallery/20190603_115035.jpg;./photo_gallery/20190603_115018.jpg;./photo_gallery/20190603_114817.jpg'),
+(4, 6, './photo_gallery/20190604_072224.jpg;./photo_gallery/20190604_072200.jpg;./photo_gallery/20190604_071232.jpg');
+
 -- --------------------------------------------------------
 
 --
@@ -99,14 +135,22 @@ CREATE TABLE `post_images` (
 CREATE TABLE `profiles` (
   `id` int(11) NOT NULL,
   `users_id` int(11) NOT NULL,
-  `bio` text,
+  `bio` text DEFAULT NULL,
   `works` varchar(200) DEFAULT NULL,
-  `address` text,
+  `address` text DEFAULT NULL,
   `phone` varchar(10) DEFAULT NULL,
   `dob` date DEFAULT NULL,
-  `followers` int(11) NOT NULL DEFAULT '0',
-  `following` int(11) NOT NULL DEFAULT '0'
+  `followers` int(11) NOT NULL DEFAULT 0,
+  `following` int(11) NOT NULL DEFAULT 0,
+  `profile_photo` text DEFAULT './profile_images/profile-icon.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `profiles`
+--
+
+INSERT INTO `profiles` (`id`, `users_id`, `bio`, `works`, `address`, `phone`, `dob`, `followers`, `following`, `profile_photo`) VALUES
+(1, 2, NULL, NULL, NULL, NULL, NULL, 0, 0, './profile_images/profile-icon.png');
 
 -- --------------------------------------------------------
 
@@ -120,8 +164,8 @@ CREATE TABLE `users` (
   `name` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(200) NOT NULL,
-  `verified` tinyint(1) NOT NULL DEFAULT '0',
-  `reg_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `verified` tinyint(1) NOT NULL DEFAULT 0,
+  `reg_time` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -196,7 +240,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `followers`
@@ -208,25 +252,25 @@ ALTER TABLE `followers`
 -- AUTO_INCREMENT for table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `post_images`
 --
 ALTER TABLE `post_images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `profiles`
 --
 ALTER TABLE `profiles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
