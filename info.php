@@ -7,6 +7,10 @@
     <title>Info</title>
 </head>
 <body>
-    
+    <div class="error d-flex justify-content-center align-items-center">
+        <h1 class="display-1">
+            Error Occurd!
+        </h1>
+    </div>
 </body>
 </html>

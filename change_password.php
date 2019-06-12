@@ -1,3 +1,11 @@
+<?php
+session_start();
+require_once "./includes/functions.php";
+if (!auth()) {
+    header('location:./login.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,6 +21,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <style>
+        .input-group-prepend {
+            width: 40%;
+            /*adjust as needed*/
+        }
+
+        .input-group-text {
+            width: 100%;
+            overflow: hidden;
+        }
     </style>
 </head>
 
@@ -29,17 +46,27 @@
                             </div>
                             <div class="card-body">
                                 <div class="form">
-                                    <div class="input-group">
-
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputCurrentPassword">Current Password</span>
+                                        </div>
+                                        <input type="text" name="current_password" id="current-password" class="form-control" placeholder="" aria-describedby="inputCurrentPassword">
                                     </div>
-                                    <div class="input-group">
-
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputNewPassword">New Password</span>
+                                        </div>
+                                        <input type="text" name="new_password" id="new-password" class="form-control" placeholder="" aria-describedby="inputNewPassword">
                                     </div>
-                                    <div class="input-group">
-
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputConfirmPassword">Confirm New Pssword</span>
+                                        </div>
+                                        <input type="text" name="confirm_password" id="confirm-password" class="form-control" placeholder="" aria-describedby="inputConfirmPassword">
                                     </div>
-                                    <div class="input-group">
 
+                                    <div class="input-group-lg">
+                                        <input type="submit" class="btn btn-primary w-100 mt-3" name="change_password" value="Change Password">
                                     </div>
                                 </div>
                             </div>

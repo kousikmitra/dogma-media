@@ -9,9 +9,17 @@ if(isset($_POST['sign_up'])){
     $sql = "INSERT INTO `users`(`username`, `name`, `email`, `password`, `verified`) VALUES ('{$username}','{$name}','{$email}','{$password}',1);";
 
     if($conn->query($sql)){
-        header('location:./login.php');
+        $users_id = $conn->insert_id;
+        $sql ="INSERT INTO `profiles`(`users_id`) VALUES ({$users_id});";
+        if($conn->query($sql)){
+            header('location:./login.php');
+        } else {
+            $sql = "DELETE FROM `users` WHERE id={$users_id};";
+            $conn->query($sql);
+            header('location:./info.php');
+        }
+        
     } else {
-        header('location:./signup.php');
+        header('location:./info.php');
     }
 }
-?>

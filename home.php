@@ -4,6 +4,7 @@ require_once "./includes/functions.php";
 if(!auth()){
     header('location:./login.php');
 }
+require_once "./database/dbconnection.php";
 ?>
 
 <!DOCTYPE html>
@@ -63,7 +64,7 @@ if(!auth()){
     </div>
 </body>
 
-<!-- <script>
+<script>
 $(document).ready(function() {
     if (window.File && window.FileList && window.FileReader) {
         $("#files").on("change", function(e) {
@@ -90,6 +91,6 @@ $(document).ready(function() {
         alert("Your browser doesn't support to File API")
     }
 });
-</script> -->
+</script>
 
 </html>

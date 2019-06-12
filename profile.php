@@ -1,3 +1,12 @@
+<?php
+session_start();
+require_once "./includes/functions.php";
+if(!auth()){
+    header('location:./login.php');
+}
+require_once "./database/dbconnection.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,7 +40,7 @@
                                 <div class="col">
                                     <div class="row">
                                         <div class="col-3 text-center">
-                                            <img src="./images/profile-icon.png" alt="" class="profile-photo rounded-circle">
+                                            <img src="./profile_images/profile-icon.png" alt="" class="profile-photo rounded-circle">
                                         </div>
                                         <div class="col-9">
                                             <div class="row mt-4">
