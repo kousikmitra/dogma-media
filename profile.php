@@ -32,7 +32,7 @@ if (isset($_GET['user_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>My Profile</title>
+    <title><?php echo $username; ?></title>
     <?php require_once "./includes/links.php"; ?>
     <link rel="stylesheet" href="./css/my_photos.css">
     <style>
@@ -70,7 +70,7 @@ if (isset($_GET['user_id'])) {
                                                         if ($user_id == $_SESSION['user_id']) {
                                                             ?>
                                                             <div class="col">
-                                                                <a href="" class="btn btn-outline-dark">Edit Profile</a>
+                                                                <a href="./edit_profile.php" class="btn btn-outline-dark">Edit Profile</a>
                                                             </div>
                                                         <?php
                                                     }

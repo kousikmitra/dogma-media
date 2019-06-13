@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 12, 2019 at 03:26 PM
+-- Generation Time: Jun 13, 2019 at 03:24 PM
 -- Server version: 10.3.15-MariaDB
 -- PHP Version: 7.3.6
 
@@ -44,7 +44,12 @@ CREATE TABLE `comments` (
 INSERT INTO `comments` (`id`, `posts_id`, `users_id`, `comment`, `comment_date`, `comment_time`) VALUES
 (1, 5, 2, 'Nice post and beautiful images', '2019-06-12', '15:07:12'),
 (2, 5, 2, 'Darjeeling is beautiful', '2019-06-12', '16:35:50'),
-(3, 4, 2, 'nice foggy photos', '2019-06-12', '16:37:04');
+(3, 4, 2, 'nice foggy photos', '2019-06-12', '16:37:04'),
+(4, 6, 2, 'beautiful photo', '2019-06-13', '11:52:10'),
+(5, 6, 3, 'its beautiful', '2019-06-13', '15:46:22'),
+(6, 3, 3, 'its a comment', '2019-06-13', '15:48:50'),
+(7, 4, 3, 'wow', '2019-06-13', '15:50:46'),
+(8, 5, 3, 'amazing beauty', '2019-06-13', '15:51:18');
 
 -- --------------------------------------------------------
 
@@ -57,6 +62,13 @@ CREATE TABLE `followers` (
   `users_id` int(11) NOT NULL,
   `follows` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `followers`
+--
+
+INSERT INTO `followers` (`id`, `users_id`, `follows`) VALUES
+(8, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -75,7 +87,11 @@ CREATE TABLE `likes` (
 --
 
 INSERT INTO `likes` (`id`, `posts_id`, `users_id`) VALUES
-(10, 5, 2);
+(11, 6, 2),
+(53, 3, 2),
+(63, 4, 2),
+(67, 6, 3),
+(68, 5, 3);
 
 -- --------------------------------------------------------
 
@@ -99,10 +115,10 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `users_id`, `post_title`, `post_data`, `post_date`, `post_time`, `total_likes`, `total_comments`) VALUES
-(3, 2, 'Hello This is my first post', 'Here are some beautiful images', '2019-06-12', '14:09:22', 0, 0),
-(4, 2, 'This one is another test', 'hello here are some other images', '2019-06-12', '14:15:06', 0, 0),
-(5, 2, 'Another test', 'here is some images like', '2019-06-12', '14:22:32', 1, 2),
-(6, 2, 'test post', 'some images', '2019-06-12', '14:39:54', 0, 0);
+(3, 2, 'Hello This is my first post', 'Here are some beautiful images', '2019-06-12', '14:09:22', 1, 1),
+(4, 2, 'This one is another test', 'hello here are some other images', '2019-06-12', '14:15:06', 1, 2),
+(5, 2, 'Another test', 'here is some images like', '2019-06-12', '14:22:32', 1, 3),
+(6, 2, 'test post', 'some images', '2019-06-12', '14:39:54', 2, 2);
 
 -- --------------------------------------------------------
 
@@ -150,7 +166,8 @@ CREATE TABLE `profiles` (
 --
 
 INSERT INTO `profiles` (`id`, `users_id`, `bio`, `works`, `address`, `phone`, `dob`, `followers`, `following`, `profile_photo`) VALUES
-(1, 2, NULL, NULL, NULL, NULL, NULL, 0, 0, './profile_images/profile-icon.png');
+(1, 2, 'here is an introduction of me', 'Intern', 'Kolkata, India', NULL, NULL, 1, 0, './profile_images/profile-icon.png'),
+(2, 3, NULL, NULL, NULL, NULL, NULL, 0, 1, './profile_images/profile-icon.png');
 
 -- --------------------------------------------------------
 
@@ -173,7 +190,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `name`, `email`, `password`, `verified`, `reg_time`) VALUES
-(2, 'kousik-mitra', 'Kousik Mitra', 'kousikmitra12@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 1, '2019-06-11 18:48:51');
+(2, 'kousik-mitra', 'Kousik Mitra', 'kousikmitra12@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 1, '2019-06-11 18:48:51'),
+(3, 'test-user', 'Test User', 'test@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 1, '2019-06-13 10:01:14');
 
 --
 -- Indexes for dumped tables
@@ -240,19 +258,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `followers`
 --
 ALTER TABLE `followers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `posts`
@@ -270,13 +288,13 @@ ALTER TABLE `post_images`
 -- AUTO_INCREMENT for table `profiles`
 --
 ALTER TABLE `profiles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

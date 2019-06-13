@@ -37,10 +37,11 @@ if (($_SERVER['REQUEST_METHOD'] == 'GET') and isset($_GET['post_id'])) {
     <title>This is a Post</title>
     <?php require_once "./includes/links.php"; ?>
     <style>
-        .liked:before{
+        .liked:before {
             content: "\f004";
         }
-        .unliked:before{
+
+        .unliked:before {
             content: "\f08a";
         }
     </style>
@@ -135,15 +136,15 @@ if (($_SERVER['REQUEST_METHOD'] == 'GET') and isset($_GET['post_id'])) {
                                         <?php
                                         $sql = "SELECT `id`, `posts_id`, `users_id` FROM `likes` WHERE posts_id={$post_id} AND users_id={$_SESSION['user_id']};";
                                         $likes = $conn->query($sql);
-                                        if($likes->num_rows == 1){
+                                        if ($likes->num_rows == 1) {
                                             $like_status = true;
                                         } else {
                                             $like_status = false;
                                         }
                                         ?>
-                                        <a href="" id="post-like" class="btn <?php echo ($like_status? 'btn-primary' : 'btn-outline-dark'); ?> w-100">
-                                            <i class="fa <?php echo ($like_status? 'liked' : 'unliked'); ?>" aria-hidden="true"></i>
-                                            <span id='like-text'><?php echo ($like_status? 'Unlike' : 'Like'); ?></span><span class="likes badge badge-primary"><?php echo $total_likes; ?></span>
+                                        <a href="" id="post-like" class="btn <?php echo ($like_status ? 'btn-primary' : 'btn-outline-dark'); ?> w-100">
+                                            <i class="fa <?php echo ($like_status ? 'liked' : 'unliked'); ?>" aria-hidden="true"></i>
+                                            <span id='like-text'><?php echo ($like_status ? 'Unlike' : 'Like'); ?></span><span class="likes badge badge-primary"><?php echo $total_likes; ?></span>
                                         </a>
                                     </div>
                                     <div class="col-4 text-center">
@@ -170,12 +171,20 @@ if (($_SERVER['REQUEST_METHOD'] == 'GET') and isset($_GET['post_id'])) {
                                                 if ($post_comments->num_rows > 0) {
                                                     while ($comment = $post_comments->fetch_assoc()) {
                                                         ?>
-                                                        <li class="list-group-item d-flex">
+                                                        <li class="list-group-item d-flex w-100">
                                                             <img src="<?php echo $comment['PROFILE_PHOTO'] ?>" class="profile-icon mr-2" alt="">
                                                             <blockquote class="blockquote">
                                                                 <p class="mb-0"><?php echo $comment['COMMENT']; ?></p>
                                                                 <footer class="blockquote-footer">by <a href="./profile.php?<?php echo $comment['USER_ID']; ?>"><cite><?php echo $comment['COMMENT_USERNAME']; ?></cite></a></footer>
                                                             </blockquote>
+                                                            <?php
+                                                            if ($comment['USER_ID'] == $_SESSION['user_id']) {
+                                                                // data-toggle="modal" data-target="#largeModal"
+                                                                ?>
+                                                                <a href="#" class="edit-comment small ml-auto">Edit</a>
+                                                            <?php
+                                                        }
+                                                        ?>
                                                         </li>
                                                     <?php
                                                 }
@@ -193,6 +202,26 @@ if (($_SERVER['REQUEST_METHOD'] == 'GET') and isset($_GET['post_id'])) {
                                                     </div>
                                                 </div>
                                             </form>
+                                            <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title" id="myModalLabel">Edit Comment</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                        <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
+                                                            <textarea class="w-100" name="comment_text" id="comment-text" style="min-height:10vh;max-height:10vh;"></textarea>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                            <input type="submit" class="btn btn-primary" value="Save changes">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -219,13 +248,13 @@ if (($_SERVER['REQUEST_METHOD'] == 'GET') and isset($_GET['post_id'])) {
             cache: false,
             success: function(data) {
                 data = JSON.parse(data);
-                if(data.status == 'liked'){
+                if (data.status == 'liked') {
                     $('.likes').text(data.total_likes);
                     $('#post-like').removeClass('btn-outline-dark');
                     $('#post-like').addClass('btn-primary');
                     $('#like-text').text('Unlike');
                     $('.unliked').addClass('liked').removeClass('unliked');
-                } else if(data.status == 'unliked') {
+                } else if (data.status == 'unliked') {
                     $('.likes').text(data.total_likes);
                     $('#post-like').removeClass('btn-primary');
                     $('#post-like').addClass('btn-outline-dark');
@@ -239,6 +268,13 @@ if (($_SERVER['REQUEST_METHOD'] == 'GET') and isset($_GET['post_id'])) {
                 alert('error: ' + eval(jqXHR.status));
             }
         });
+    });
+
+    $(document).on('click', '.edit-comment', function(e) {
+        e.preventDefault();
+        alert($(this).text());
+        //todo
+        $('#largeModal').modal('show');
     });
 </script>
 
