@@ -16,7 +16,7 @@
                     $myprofile_info = $conn->query($sql);
                     $myprofile_info = $myprofile_info->fetch_assoc();
                     ?>
-                    <a class="nav-link font-weight-bold" href="./profile.php?<?php echo $myprofile_info['USERID'] ?>">
+                    <a class="nav-link font-weight-bold" href="<?php echo "./profile.php?user_id=".$myprofile_info['USERID'] ?>">
                         <img src="<?php echo $myprofile_info['PROFILE_PHOTO'] ?>" class="profile-icon" alt=""> <?php echo $myprofile_info['NAME'] ?>
                     </a>
                 </li>

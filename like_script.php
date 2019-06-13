@@ -15,18 +15,28 @@ if (($_SERVER['REQUEST_METHOD'] == 'GET') and isset($_GET['post_id'])) {
         $sql = "INSERT INTO `likes`(`posts_id`, `users_id`) VALUES ({$post_id},{$like_user});";
 
         if ($conn->query($sql)) {
-            $comment_id = $conn->insert_id;
+            $like_id = $conn->insert_id;
             if ($conn->query("UPDATE `posts` SET `total_likes`= total_likes+1 WHERE id = {$post_id};")) {
-                $likes['status'] = 1;
+                $likes['status'] = 'liked';
             } else {
-                $conn->query("DELETE FROM `likes` WHERE id = {$comment_id};");
-                $likes['status'] = 0;
+                $conn->query("DELETE FROM `likes` WHERE id = {$like_id};");
+                $likes['status'] = 'failed';
             }
         } else {
-            $likes['status'] = 0;
+            $likes['status'] = 'failed';
         }
     } else {
-        $likes['status'] = 0;
+        $sql = "UPDATE `posts` SET `total_likes`= total_likes-1 WHERE id = {$post_id};";
+        if ($conn->query($sql)) {
+            if ($conn->query("DELETE FROM `likes` WHERE posts_id = {$post_id} AND users_id = {$like_user};")) {
+                $likes['status'] = 'unliked';
+            } else {
+                $conn->query("UPDATE `posts` SET `total_likes`= total_likes+1 WHERE id = {$post_id};");
+                $likes['status'] = 'failed';
+            }
+        } else {
+            $likes['status'] = 'failed';
+        }
     }
 
     $sql = "SELECT total_likes FROM posts WHERE id = {$post_id};";

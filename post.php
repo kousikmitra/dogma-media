@@ -42,6 +42,12 @@ if (($_SERVER['REQUEST_METHOD'] == 'GET') and isset($_GET['post_id'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <style>
+        .liked:before{
+            content: "\f004";
+        }
+        .unliked:before{
+            content: "\f08a";
+        }
     </style>
 </head>
 
@@ -65,7 +71,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'GET') and isset($_GET['post_id'])) {
                                 <a class="d-flex align-items-center" href="http://"><img src="<?php echo $result['PROFILE_PHOTO']; ?>" class="profile-icon img-fluid rounded-circle" alt="">
                                     <h5 class="user-name font-weight-200 ml-3 mt-2"><?php echo $result['USERNAME']; ?></h5>
                                 </a>
-                                <small class="ml-auto"><?php echo get_time_difference("$post_date $post_time");; ?></small>
+                                <small class="ml-auto"><?php echo get_time_difference("$post_date $post_time"); ?></small>
                             </div>
                             <div class="card-body p-0">
                                 <div class="post-text mx-2 m-2">
@@ -131,9 +137,18 @@ if (($_SERVER['REQUEST_METHOD'] == 'GET') and isset($_GET['post_id'])) {
                                 </div>
                                 <div class="row">
                                     <div class="col-4 text-center">
-                                        <a href="" id="post-like" class="btn btn-outline-dark w-100">
-                                            <i class="fa fa-heart-o" aria-hidden="true"></i>
-                                            LIKE <span class="likes badge badge-primary"><?php echo $total_likes; ?></span>
+                                        <?php
+                                        $sql = "SELECT `id`, `posts_id`, `users_id` FROM `likes` WHERE posts_id={$post_id} AND users_id={$_SESSION['user_id']};";
+                                        $likes = $conn->query($sql);
+                                        if($likes->num_rows == 1){
+                                            $like_status = true;
+                                        } else {
+                                            $like_status = false;
+                                        }
+                                        ?>
+                                        <a href="" id="post-like" class="btn <?php echo ($like_status? 'btn-primary' : 'btn-outline-dark'); ?> w-100">
+                                            <i class="fa <?php echo ($like_status? 'liked' : 'unliked'); ?>" aria-hidden="true"></i>
+                                            <span id='like-text'><?php echo ($like_status? 'Unlike' : 'Like'); ?></span><span class="likes badge badge-primary"><?php echo $total_likes; ?></span>
                                         </a>
                                     </div>
                                     <div class="col-4 text-center">
@@ -209,10 +224,20 @@ if (($_SERVER['REQUEST_METHOD'] == 'GET') and isset($_GET['post_id'])) {
             cache: false,
             success: function(data) {
                 data = JSON.parse(data);
-                if(data.status == 1){
+                if(data.status == 'liked'){
                     $('.likes').text(data.total_likes);
                     $('#post-like').removeClass('btn-outline-dark');
                     $('#post-like').addClass('btn-primary');
+                    $('#like-text').text('Unlike');
+                    $('.unliked').addClass('liked').removeClass('unliked');
+                } else if(data.status == 'unliked') {
+                    $('.likes').text(data.total_likes);
+                    $('#post-like').removeClass('btn-primary');
+                    $('#post-like').addClass('btn-outline-dark');
+                    $('#like-text').text('Like');
+                    $('.liked').addClass('unliked').removeClass('liked');
+                } else {
+                    alert(data.status);
                 }
             },
             error: function(jqXHR, exception) {
