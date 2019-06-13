@@ -2,7 +2,7 @@
 
     <div class="gallery">
         <?php
-        $sql = "SELECT post_images.id AS 'POST_IMAGES_ID', post_images.posts_id AS 'POST_ID', images AS 'IMAGES', posts.total_likes AS 'TOTAL_LIKES', posts.total_comments AS 'TOTAL_COMMENTS' FROM post_images, posts WHERE posts.id = post_images.posts_id AND posts.users_id = {$_SESSION['user_id']};";
+        $sql = "SELECT post_images.id AS 'POST_IMAGES_ID', post_images.posts_id AS 'POST_ID', images AS 'IMAGES', posts.total_likes AS 'TOTAL_LIKES', posts.total_comments AS 'TOTAL_COMMENTS' FROM post_images, posts WHERE posts.id = post_images.posts_id AND posts.users_id = {$user_id};";
         $post_images = $conn->query($sql);
         if ($post_images->num_rows > 0) {
             while ($post_image = $post_images->fetch_assoc()) {

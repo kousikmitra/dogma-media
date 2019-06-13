@@ -15,17 +15,13 @@ require_once "./database/dbconnection.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <?php require_once "./includes/links.php"; ?>
     <style>
-        .liked:before{
+        .liked:before {
             content: "\f004";
         }
-        .unliked:before{
+
+        .unliked:before {
             content: "\f08a";
         }
     </style>
@@ -55,7 +51,7 @@ require_once "./database/dbconnection.php";
                                 <div class="col">
                                     <div class="posts-container">
                                         <?php
-                                        $sql = "SELECT posts.id AS 'POST_ID', posts.users_id AS 'POST_USER_ID', posts.post_title AS 'POST_TITLE', posts.post_data AS 'POST_DATA', posts.post_date AS 'POST_DATE', posts.post_time AS 'POST_TIME', posts.total_likes AS 'TOTAL_LIKES', posts.total_comments AS 'TOTAL_COMMENTS', users.username AS 'POST_USERNAME', profiles.profile_photo AS 'PROFILE_PHOTO' FROM posts, users, profiles WHERE posts.users_id = users.id AND profiles.users_id = users.id ORDER BY posts.post_date DESC, posts.post_time DESC;";
+                                        $sql = "SELECT posts.id AS 'POST_ID', posts.users_id AS 'POST_USER_ID', posts.post_title AS 'POST_TITLE', posts.post_data AS 'POST_DATA', posts.post_date AS 'POST_DATE', posts.post_time AS 'POST_TIME', posts.total_likes AS 'TOTAL_LIKES', posts.total_comments AS 'TOTAL_COMMENTS', users.username AS 'POST_USERNAME', profiles.profile_photo AS 'PROFILE_PHOTO' FROM posts, users, profiles WHERE (posts.users_id = users.id AND profiles.users_id = users.id) AND (posts.users_id IN (SELECT follows FROM followers WHERE users_id = {$_SESSION['user_id']}) OR posts.users_id = {$_SESSION['user_id']}) ORDER BY posts.post_date DESC, posts.post_time DESC;";
                                         $result_posts = $conn->query($sql);
                                         if ($result_posts->num_rows > 0) {
                                             while ($post = $result_posts->fetch_assoc()) {
@@ -73,7 +69,11 @@ require_once "./database/dbconnection.php";
                                             <?php
                                         }
                                     } else {
-                                        header('location:./info.php');
+                                        ?>
+                                            <div class="container-fluid d-flex justify-content-center mt-5 text-muted">
+                                                <h1 class="display-4">Follow! To see their thoughts...</h1>
+                                            </div>
+                                        <?php
                                     }
                                     ?>
                                     </div>
@@ -131,12 +131,12 @@ require_once "./database/dbconnection.php";
             cache: false,
             success: function(data) {
                 data = JSON.parse(data);
-                if(data.status == 'liked'){
+                if (data.status == 'liked') {
                     this_elem.parent().parent().prev().find('.likes').text(data.total_likes);
                     this_elem.find('.likes').text(data.total_likes);
                     this_elem.find('#like-text').text('Unlike');
                     this_elem.find('.unliked').addClass('liked').removeClass('unliked');
-                } else if(data.status == 'unliked') {
+                } else if (data.status == 'unliked') {
                     this_elem.parent().parent().prev().find('.likes').text(data.total_likes);
                     this_elem.find('.likes').text(data.total_likes);
                     this_elem.find('#like-text').text('Like');

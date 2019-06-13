@@ -1,15 +1,20 @@
+<?php
+session_start();
+require_once "./includes/functions.php";
+if(auth()){
+    header('location:./home.php');
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <?php require_once "./includes/links.php"; ?>
     <title>Sign Up</title>
     <style>
     :root {
@@ -38,8 +43,10 @@ body {
 .card-signin .card-img-left {
   width: 45%;
   /* Link to your background image using in the property below! */
-  background: scroll center url('https://source.unsplash.com/WEQbe2jBg40/414x512');
+  background: scroll center url('./images/signup-page-photo.jpeg');
   background-size: cover;
+  -webkit-filter: blur(1.5px);
+  filter: blur(1.5px);
 }
 
 .card-signin .card-body {
@@ -136,7 +143,7 @@ body {
 <div class="container-fluid">
     <div class="row no-gutters">
       <div class="col-lg-12 col-xl-9 mx-auto">
-        <div class="card card-signin flex-row my-4">
+        <div class="card card-signin flex-row mt-5">
           <div class="card-img-left d-none d-md-flex" style="width:45vw;">
              <!-- Background image for card set in CSS! -->
           </div>
@@ -152,6 +159,7 @@ body {
                 <input type="text" id="inputUsername" name="username" class="form-control" placeholder="Username" required>
                 <label for="inputUsername">Username</label>
               </div>
+              
 
               <div class="form-label-group">
                 <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required>

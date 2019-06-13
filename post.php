@@ -35,12 +35,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'GET') and isset($_GET['post_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>This is a Post</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <?php require_once "./includes/links.php"; ?>
     <style>
         .liked:before{
             content: "\f004";
@@ -153,7 +148,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'GET') and isset($_GET['post_id'])) {
                                     </div>
                                     <div class="col-4 text-center">
                                         <a href="#comment-text" class="btn btn-outline-dark w-100">
-                                            <i class="fa fa-align-center" aria-hidden="true"></i>
+                                            <i class="fa fa-comment" aria-hidden="true"></i>
                                             Comment <span class="badge badge-primary"><?php echo $total_comments; ?></span>
                                         </a>
                                     </div>
@@ -170,7 +165,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'GET') and isset($_GET['post_id'])) {
                                         <div id="post-comments" class="post-comments">
                                             <ul class="list-group list-group-flush">
                                                 <?php
-                                                $sql = "SELECT comments.id AS 'COMMENT_ID', comments.users_id AS 'USER_ID', comments.comment AS 'COMMENT', comments.comment_date AS 'COMMENT_DATE', comments.comment_time AS 'COMMENT_TIME', users.username AS 'COMMENT_USERNAME', profiles.profile_photo AS 'PROFILE_PHOTO' FROM comments, users, profiles WHERE users.id = comments.users_id AND posts_id={$post_id};";
+                                                $sql = "SELECT comments.id AS 'COMMENT_ID', comments.users_id AS 'USER_ID', comments.comment AS 'COMMENT', comments.comment_date AS 'COMMENT_DATE', comments.comment_time AS 'COMMENT_TIME', users.username AS 'COMMENT_USERNAME', profiles.profile_photo AS 'PROFILE_PHOTO' FROM comments, users, profiles WHERE users.id = comments.users_id AND users.id = profiles.users_id AND posts_id={$post_id};";
                                                 $post_comments = $conn->query($sql);
                                                 if ($post_comments->num_rows > 0) {
                                                     while ($comment = $post_comments->fetch_assoc()) {

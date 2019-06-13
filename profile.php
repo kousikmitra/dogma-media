@@ -61,37 +61,54 @@ if (isset($_GET['user_id'])) {
                                         </div>
                                         <div class="col-9">
                                             <div class="row mt-4">
-                                                <div class="col-8">
-                                                    <h1 class="full-name"><?php echo $name; ?></h1>
+                                                <div class="col-9">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <h1 class="full-name w-100"><?php echo $name; ?></h1>
+                                                        </div>
+                                                        <?php
+                                                        if ($user_id == $_SESSION['user_id']) {
+                                                            ?>
+                                                            <div class="col">
+                                                                <a href="" class="btn btn-outline-dark">Edit Profile</a>
+                                                            </div>
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                    </div>
+
+
                                                     <h5 class="user-name"><?php echo $username; ?></h5>
 
-                                                    <?php
-                                                    if ($bio!=null) {
-                                                        ?>
-                                                    <h4 class="bio mt-3"><?php echo $bio; ?></h4>
-                                                    <?php
-                                                    }
-                                                    ?>
+
 
                                                     <?php
-                                                    if ($works!=null) {
+                                                    if ($bio != null) {
                                                         ?>
-                                                    <p class="small work mt-3"><i class="fa fa-briefcase small"></i> <?php echo $works; ?></p>
+                                                        <h4 class="bio mt-3"><?php echo $bio; ?></h4>
                                                     <?php
-                                                    }
-                                                    ?>
-                                                    
+                                                }
+                                                ?>
+
                                                     <?php
-                                                    if ($address!=null) {
+                                                    if ($works != null) {
                                                         ?>
-                                                    <p class="address mt-1">
-                                                        <i class="fa fa-map-marker"></i> <?php echo $address ?>
-                                                    </p>
+                                                        <p class="small work mt-3"><i class="fa fa-briefcase small"></i> <?php echo $works; ?></p>
                                                     <?php
-                                                    }
-                                                    ?>
+                                                }
+                                                ?>
+
+                                                    <?php
+                                                    if ($address != null) {
+                                                        ?>
+                                                        <p class="address mt-1">
+                                                            <i class="fa fa-map-marker"></i> <?php echo $address ?>
+                                                        </p>
+                                                    <?php
+                                                }
+                                                ?>
                                                 </div>
-                                                <div class="col-4">
+                                                <div class="col-3">
                                                     <a href="" class="btn btn-primary float-right">Send Message</a>
                                                 </div>
                                             </div>
@@ -101,17 +118,35 @@ if (isset($_GET['user_id'])) {
                                                     <div class="row">
                                                         <div class="col">
                                                             <a href="" class="btn btn-outline-dark w-100">Followers
-                                                                <span class="badge badge-primary"><?php echo $followers; ?></span>
+                                                                <span id="followers" class="badge badge-primary"><?php echo $followers; ?></span>
                                                             </a>
                                                         </div>
                                                         <div class="col">
                                                             <a href="" class="btn btn-outline-dark w-100">Foolowing
-                                                                <span class="badge badge-primary"><?php echo $following; ?></span>
+                                                                <span id="following" class="badge badge-primary"><?php echo $following; ?></span>
                                                             </a>
                                                         </div>
-                                                        <div class="col-5">
-                                                            <a href="" class="btn btn-primary w-100 fa font-weight-bold"> Follow</a>
-                                                        </div>
+                                                        <?php
+                                                        if ($user_id != $_SESSION['user_id']) {
+                                                            ?>
+                                                            <div class="col-5">
+                                                                <?php
+
+                                                                $sql = "SELECT `users_id`, `follows` FROM `followers` WHERE users_id = {$_SESSION['user_id']} AND follows = {$user_id};";
+                                                                $result = $conn->query($sql);
+                                                                if ($result->num_rows == 0) {
+                                                                    ?>
+                                                                    <a id="follow" href="<?php echo $user_id; ?>" class="btn btn-primary w-100 fa font-weight-bold">Follow</a>
+                                                                <?php
+                                                            } else {
+                                                                ?>
+                                                                    <a id="follow" href="<?php echo $user_id; ?>" class="btn btn-primary w-100 fa font-weight-bold">Unfollow</a>
+                                                                <?php
+                                                            } ?>
+                                                            </div>
+                                                        <?php
+                                                    }
+                                                    ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -182,6 +217,37 @@ if (isset($_GET['user_id'])) {
                     this_elem.find('.likes').text(data.total_likes);
                     this_elem.find('#like-text').text('Like');
                     this_elem.find('.liked').addClass('unliked').removeClass('liked');
+                } else {
+                    alert(data.status);
+                }
+            },
+            error: function(jqXHR, exception) {
+                alert('error: ' + eval(jqXHR.status));
+            }
+        });
+    });
+
+    $('#follow').on('click', function(e) {
+        var this_elem = $(this);
+        e.preventDefault();
+        follow_id = $(this).attr('href');
+        user_id = <?php echo $_SESSION['user_id']; ?>;
+        $.ajax({
+            type: "GET",
+            datatype: "json",
+            url: "follow_script.php",
+            data: "user_id=" + user_id + "&follow_id=" + follow_id,
+            cache: false,
+            success: function(data) {
+                data = JSON.parse(data);
+                if (data.status == 'followed') {
+                    $('#follow').text('Unfollow');
+                    $('#followers').text(data.followers);
+                    $('#following').text(data.following);
+                } else if (data.status == 'unfollowed') {
+                    $('#follow').text('Follow');
+                    $('#followers').text(data.followers);
+                    $('#following').text(data.following);
                 } else {
                     alert(data.status);
                 }

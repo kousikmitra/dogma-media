@@ -1,6 +1,6 @@
 <div class="header-section fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand mx-5" href="#">Dogma Media</a>
+        <a class="navbar-brand mx-5 font-weight-bolder" href="./home.php">Dogma Media</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -17,7 +17,7 @@
                     $myprofile_info = $myprofile_info->fetch_assoc();
                     ?>
                     <a class="nav-link font-weight-bold" href="<?php echo "./profile.php?user_id=".$myprofile_info['USERID'] ?>">
-                        <img src="<?php echo $myprofile_info['PROFILE_PHOTO'] ?>" class="profile-icon" alt=""> <?php echo $myprofile_info['NAME'] ?>
+                        <img src="<?php echo $myprofile_info['PROFILE_PHOTO'] ?>" class="profile-icon" alt=""> <?php echo $myprofile_info['NAME']; echo $_SESSION['user_id']; ?>
                     </a>
                 </li>
                 <li class="nav-item dropdown">

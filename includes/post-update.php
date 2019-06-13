@@ -11,7 +11,7 @@
                                 is the title?</span>
                         </div>
                         <input type="text" name="post_title" id="title" class="form-control" placeholder=""
-                            aria-describedby="inputGroupFileAddon00">
+                            aria-describedby="inputGroupFileAddon00" autocomplete="off">
                     </div>
 
                     <div class="form-group mt-3">

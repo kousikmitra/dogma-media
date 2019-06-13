@@ -1,6 +1,6 @@
 <div class="posts-container">
     <?php
-    $sql = "SELECT posts.id AS 'POST_ID', posts.users_id AS 'POST_USER_ID', posts.post_title AS 'POST_TITLE', posts.post_data AS 'POST_DATA', posts.post_date AS 'POST_DATE', posts.post_time AS 'POST_TIME', posts.total_likes AS 'TOTAL_LIKES', posts.total_comments AS 'TOTAL_COMMENTS', users.username AS 'POST_USERNAME', profiles.profile_photo AS 'PROFILE_PHOTO' FROM posts, users, profiles WHERE posts.users_id = users.id AND profiles.users_id = users.id AND users.id = {$_SESSION['user_id']} ORDER BY posts.post_date DESC, posts.post_time DESC;";
+    $sql = "SELECT posts.id AS 'POST_ID', posts.users_id AS 'POST_USER_ID', posts.post_title AS 'POST_TITLE', posts.post_data AS 'POST_DATA', posts.post_date AS 'POST_DATE', posts.post_time AS 'POST_TIME', posts.total_likes AS 'TOTAL_LIKES', posts.total_comments AS 'TOTAL_COMMENTS', users.username AS 'POST_USERNAME', profiles.profile_photo AS 'PROFILE_PHOTO' FROM posts, users, profiles WHERE posts.users_id = users.id AND profiles.users_id = users.id AND users.id = {$user_id} ORDER BY posts.post_date DESC, posts.post_time DESC;";
     $result_posts = $conn->query($sql);
     if ($result_posts->num_rows > 0) {
         while ($post = $result_posts->fetch_assoc()) {
@@ -18,7 +18,11 @@
         <?php
     }
 } else {
-    header('location:./info.php');
+    ?>
+        <div class="container-fluid d-flex justify-content-center mt-5 text-muted">
+            <h1 class="display-4">Still Have not posted any thoughts!</h1>
+        </div>
+    <?php
 }
 ?>
 </div>
