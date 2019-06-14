@@ -8,7 +8,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto mr-5 d-flex align-items-baseline">
                 <li class="nav-item active">
-                    <a class="nav-link font-weight-bold" href="./home.php">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link font-weight-bold" href="../home.php">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <?php
@@ -16,8 +16,8 @@
                     $myprofile_info = $conn->query($sql);
                     $myprofile_info = $myprofile_info->fetch_assoc();
                     ?>
-                    <a class="nav-link font-weight-bold" href="<?php echo "./profile.php?user_id=".$myprofile_info['USERID'] ?>">
-                        <img src="<?php echo get_dir_url()."profile_images/".$myprofile_info['PROFILE_PHOTO'] ?>" class="profile-icon" alt=""> <?php echo $myprofile_info['NAME']; echo $_SESSION['user_id']; ?>
+                    <a class="nav-link font-weight-bold" href="<?php echo "../profile.php?user_id=".$myprofile_info['USERID'] ?>">
+                        <img src="<?php echo get_dir_url()."../profile_images/".$myprofile_info['PROFILE_PHOTO'] ?>" class="profile-icon" alt=""> <?php echo $myprofile_info['NAME']; ?>
                     </a>
                 </li>
                 <li class="nav-item dropdown">

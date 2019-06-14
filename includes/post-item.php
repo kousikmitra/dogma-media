@@ -5,7 +5,7 @@
         $result = $conn->query($sql);
         $result = $result->fetch_assoc();
         ?>
-        <a class="d-flex align-items-center" href="<?php echo "./profile.php?user_id={$user_post_id}"; ?>"><img src="<?php echo $result['PROFILE_PHOTO']; ?>" class="profile-icon img-fluid rounded-circle" alt="">
+        <a class="d-flex align-items-center" href="<?php echo "./profile.php?user_id={$user_post_id}"; ?>"><img src="<?php echo get_dir_url()."profile_images/".$result['PROFILE_PHOTO']; ?>" class="profile-icon img-fluid rounded-circle" alt="">
             <h5 class="user-name font-weight-200 ml-3 mt-2"><?php echo $result['USERNAME']; ?></h5>
         </a>
         <small class="ml-auto"><?php echo get_time_difference("$post_date $post_time"); ?></small>
@@ -91,7 +91,7 @@
                                 $comment_time = $comment['COMMENT_TIME'];
                                 ?>
                                 <li class="list-group-item d-flex">
-                                    <img src="<?php echo $comment_profile_photo; ?>" class="profile-icon mr-2" alt="">
+                                    <img src="<?php echo get_dir_url()."profile_images/".$comment_profile_photo; ?>" class="profile-icon mr-2" alt="">
                                     <blockquote class="blockquote">
                                         <p class="mb-0"><?php echo $comment_data; ?></p>
                                         <footer class="blockquote-footer">by <a href="<?php echo "./profile.php?user_id={$comment_user_id}"; ?>"><cite><?php echo $comment_username; ?></cite></a></footer>

@@ -54,7 +54,7 @@ if (!empty($_SESSION['user_id'])) {
                                 <!-- left column -->
                                 <div class="col-md-3">
                                     <div class="text-center">
-                                        <img src="<?php echo $profile_photo; ?>" width="100" class="img-circle rounded-circle mb-2" alt="avatar">
+                                        <img src="<?php echo get_dir_url() . "profile_images/" . $profile_photo; ?>" width="100" class="img-circle rounded-circle mb-2" alt="avatar">
                                         <h6>Upload a different photo...</h6>
                                         <form role="form" action="./edit_profile_script.php" method="post" enctype="multipart/form-data">
                                             <input type="file" class="form-control">

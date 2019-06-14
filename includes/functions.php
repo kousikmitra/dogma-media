@@ -78,6 +78,6 @@ function get_time_difference($created_time)
     for ($i = 0; $i < count($parts) - 1; $i++) {
      $dir .= $parts[$i] . "/";
     }
-    return $dir;
+    return "http://".$dir;
   }
 ?>

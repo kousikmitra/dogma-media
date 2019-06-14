@@ -1,0 +1,100 @@
+/* 
+    Created on : 31 Mar, 2014, 3:03:25 PM
+    Author     : Tamil
+*/
+
+/* .container {
+  width: 50vw;
+  z-index: 300;
+  margin-left: 30%;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  font-family: 'tahoma';
+  font-size: 1rem;
+} */
+
+/* message box header styles*/
+
+.msg-wgt-header {
+  background-color: rgb(67, 119, 231);
+  /* border: 1px solid rgba(23, 136, 241, 0.925); */
+  color: white;
+  text-align: center;
+  /* height: 30px; */
+}
+
+.msg-wgt-header a {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: white;
+  vertical-align: middle;
+}
+
+/* message box body styles*/
+
+.msg-wgt-body {
+  height: 70vh;
+  overflow-y: scroll;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 1%;
+}
+
+.chat-peoples{
+  height: 75.4vh;
+}
+
+.known-peoples{
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2)
+}
+
+.msg-wgt-body table {
+  width: 100%;
+}
+
+.msg-row-container {
+  border-bottom: 1px solid lightgray;
+}
+
+.msg-row-container td {
+  border-bottom: 1px solid lightgray;
+  padding: 3px 0 3px 2px;
+}
+
+.msg-row {
+  width: 100%;
+}
+
+.message {
+  margin-left: 40px;
+}
+
+/* Message box footer styles*/
+
+.msg-wgt-footer {
+  margin-top: 2%;
+}
+
+.msg-wgt-footer textarea {
+  width: 100%;
+  font-family: 'tahoma';
+  font-size: 1rem;
+  padding: 5px;
+}
+
+.user-label {
+  font-size: .8 rem;
+}
+
+.msg-time {
+  font-size: 10px;
+  float: right;
+  color: gray;
+}
+
+.avatar {
+  width: 2rem;
+  height: 2rem;
+  float: left;
+  border: 1px solid lightgray;
+}

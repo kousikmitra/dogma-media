@@ -57,7 +57,7 @@ if (isset($_GET['user_id'])) {
                                 <div class="col">
                                     <div class="row">
                                         <div class="col-3 text-center">
-                                            <img src="<?php echo $profile_photo; ?>" alt="" class="profile-photo rounded-circle">
+                                            <img src="<?php echo get_dir_url() . "profile_images/" . $profile_photo; ?>" alt="" class="profile-photo rounded-circle">
                                         </div>
                                         <div class="col-9">
                                             <div class="row mt-4">
@@ -109,7 +109,13 @@ if (isset($_GET['user_id'])) {
                                                 ?>
                                                 </div>
                                                 <div class="col-3">
-                                                    <a href="" class="btn btn-primary float-right">Send Message</a>
+                                                    <?php
+                                                if ($user_id != $_SESSION['user_id']) {
+                                                    ?>
+                                                    <a href="<?php echo "./chat/?sent_to=".$user_id; ?>" class="btn btn-primary float-right">Send Message</a>
+                                                    <?php
+                                                }
+                                                    ?>
                                                 </div>
                                             </div>
                                             <div class="row mt-5">

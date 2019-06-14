@@ -64,7 +64,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'GET') and isset($_GET['post_id'])) {
                                 $result = $conn->query($sql);
                                 $result = $result->fetch_assoc();
                                 ?>
-                                <a class="d-flex align-items-center" href="http://"><img src="<?php echo $result['PROFILE_PHOTO']; ?>" class="profile-icon img-fluid rounded-circle" alt="">
+                                <a class="d-flex align-items-center" href="http://"><img src="<?php echo get_dir_url()."profile_images/".$result['PROFILE_PHOTO']; ?>" class="profile-icon img-fluid rounded-circle" alt="">
                                     <h5 class="user-name font-weight-200 ml-3 mt-2"><?php echo $result['USERNAME']; ?></h5>
                                 </a>
                                 <small class="ml-auto"><?php echo get_time_difference("$post_date $post_time"); ?></small>
@@ -171,11 +171,11 @@ if (($_SERVER['REQUEST_METHOD'] == 'GET') and isset($_GET['post_id'])) {
                                                 if ($post_comments->num_rows > 0) {
                                                     while ($comment = $post_comments->fetch_assoc()) {
                                                         ?>
-                                                        <li class="list-group-item d-flex w-100">
-                                                            <img src="<?php echo $comment['PROFILE_PHOTO'] ?>" class="profile-icon mr-2" alt="">
-                                                            <blockquote class="blockquote">
-                                                                <p class="mb-0"><?php echo $comment['COMMENT']; ?></p>
-                                                                <footer class="blockquote-footer">by <a href="./profile.php?<?php echo $comment['USER_ID']; ?>"><cite><?php echo $comment['COMMENT_USERNAME']; ?></cite></a></footer>
+                                                        <li class="list-group-item d-flex">
+                                                            <img src="<?php echo get_dir_url()."profile_images/".$comment['PROFILE_PHOTO'] ?>" class="profile-icon mr-2" alt="">
+                                                            <blockquote class="comment">
+                                                                <p data="<?php echo $comment['COMMENT_ID']; ?>" class="mb-0 ove"><?php echo $comment['COMMENT']; ?></p>
+                                                                <footer class="blockquote-footer">by <a href="./profile.php?user_id=<?php echo $comment['USER_ID']; ?>"><cite><?php echo $comment['COMMENT_USERNAME']; ?></cite></a></footer>
                                                             </blockquote>
                                                             <?php
                                                             if ($comment['USER_ID'] == $_SESSION['user_id']) {
@@ -202,26 +202,28 @@ if (($_SERVER['REQUEST_METHOD'] == 'GET') and isset($_GET['post_id'])) {
                                                     </div>
                                                 </div>
                                             </form>
-                                            <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-                                                <div class="modal-dialog modal-lg">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title" id="myModalLabel">Edit Comment</h4>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                        <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
-                                                            <textarea class="w-100" name="comment_text" id="comment-text" style="min-height:10vh;max-height:10vh;"></textarea>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                            <input type="submit" class="btn btn-primary" value="Save changes">
+                                            <form id="edit-comment">
+                                                <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="myModalLabel">Edit Comment</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <input type="hidden" id="comment-id" name="comment_id" value="">
+                                                                <textarea class="w-100" name="comment_text" id="comment-text" style="min-height:10vh;max-height:10vh;"></textarea>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                <input type="submit" class="btn btn-primary" name="edit_comment" value="Save changes">
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -270,11 +272,42 @@ if (($_SERVER['REQUEST_METHOD'] == 'GET') and isset($_GET['post_id'])) {
         });
     });
 
+    var change_comment;
     $(document).on('click', '.edit-comment', function(e) {
+        change_comment = $(this);
         e.preventDefault();
-        alert($(this).text());
-        //todo
-        $('#largeModal').modal('show');
+        var comment_text = $(this).prev('.comment').children().first().text();
+        var comment_id = $(this).prev('.comment').children().first().attr('data');
+        var modal = $('#largeModal');
+        modal.find('#comment-id').val(comment_id);
+        modal.find('#comment-text').val(comment_text);
+        modal.modal('show');
+    });
+
+    $('#edit-comment').submit(function(e){
+        e.preventDefault();
+        var form_data = $(this).serialize();
+        $.ajax({
+            type: "POST",
+            datatype: "json",
+            url: "edit_comment_script.php",
+            data: form_data,
+            cache: false,
+            success: function(data) {
+                $('#largeModal').modal('hide');
+                data = JSON.parse(data);
+                if (data.status == 'updated') {
+                    change_comment.prev('.comment').children().first().text(data.comment_text);
+                } else if (data.status == 'failed') {
+                    alert('Error! ' + data.reason);
+                } else {
+                    alert('Server Error! ' + data.error_text);
+                }
+            },
+            error: function(jqXHR, exception) {
+                alert('error: ' + eval(jqXHR.status));
+            }
+        });
     });
 </script>
 
