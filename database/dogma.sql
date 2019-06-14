@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 13, 2019 at 03:24 PM
+-- Generation Time: Jun 14, 2019 at 12:29 PM
 -- Server version: 10.3.15-MariaDB
 -- PHP Version: 7.3.6
 
@@ -25,6 +25,44 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `chat`
+--
+
+CREATE TABLE `chat` (
+  `id` int(11) NOT NULL,
+  `users_id` int(11) NOT NULL,
+  `sent_to` int(11) NOT NULL,
+  `message` text NOT NULL,
+  `sent_on` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `chat`
+--
+
+INSERT INTO `chat` (`id`, `users_id`, `sent_to`, `message`, `sent_on`) VALUES
+(7, 2, 3, 'hello', '2019-06-14 06:39:11'),
+(8, 3, 2, 'hello back', '2019-06-14 06:40:27'),
+(9, 2, 4, 'hi to test2', '2019-06-14 06:41:58'),
+(10, 4, 2, 'hi kousik', '2019-06-14 06:42:11'),
+(11, 4, 3, 'hi first test', '2019-06-14 06:42:23'),
+(12, 3, 4, 'hi test2 from test1', '2019-06-14 06:42:54'),
+(13, 3, 2, 'hi again', '2019-06-14 07:31:30'),
+(14, 3, 2, 'hi', '2019-06-14 07:31:52'),
+(15, 2, 3, 'hello', '2019-06-14 07:32:19'),
+(16, 2, 3, 'hello', '2019-06-14 07:32:29'),
+(17, 2, 3, 'hello', '2019-06-14 07:32:33'),
+(18, 2, 3, 'hello', '2019-06-14 07:32:35'),
+(19, 2, 3, 'hello', '2019-06-14 07:32:37'),
+(20, 2, 3, 'hello', '2019-06-14 08:04:25'),
+(21, 2, 3, 'again', '2019-06-14 08:05:10'),
+(22, 2, 3, 'ok done', '2019-06-14 08:29:06'),
+(23, 2, 3, 'hello', '2019-06-14 08:47:15'),
+(24, 2, 3, 'hi', '2019-06-14 08:47:17');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `comments`
 --
 
@@ -42,7 +80,7 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `posts_id`, `users_id`, `comment`, `comment_date`, `comment_time`) VALUES
-(1, 5, 2, 'Nice post and beautiful images', '2019-06-12', '15:07:12'),
+(1, 5, 2, 'really beautiful', '2019-06-12', '15:07:12'),
 (2, 5, 2, 'Darjeeling is beautiful', '2019-06-12', '16:35:50'),
 (3, 4, 2, 'nice foggy photos', '2019-06-12', '16:37:04'),
 (4, 6, 2, 'beautiful photo', '2019-06-13', '11:52:10'),
@@ -68,7 +106,8 @@ CREATE TABLE `followers` (
 --
 
 INSERT INTO `followers` (`id`, `users_id`, `follows`) VALUES
-(8, 3, 2);
+(8, 3, 2),
+(9, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -87,11 +126,12 @@ CREATE TABLE `likes` (
 --
 
 INSERT INTO `likes` (`id`, `posts_id`, `users_id`) VALUES
-(11, 6, 2),
 (53, 3, 2),
 (63, 4, 2),
 (67, 6, 3),
-(68, 5, 3);
+(68, 5, 3),
+(73, 5, 2),
+(75, 6, 2);
 
 -- --------------------------------------------------------
 
@@ -117,7 +157,7 @@ CREATE TABLE `posts` (
 INSERT INTO `posts` (`id`, `users_id`, `post_title`, `post_data`, `post_date`, `post_time`, `total_likes`, `total_comments`) VALUES
 (3, 2, 'Hello This is my first post', 'Here are some beautiful images', '2019-06-12', '14:09:22', 1, 1),
 (4, 2, 'This one is another test', 'hello here are some other images', '2019-06-12', '14:15:06', 1, 2),
-(5, 2, 'Another test', 'here is some images like', '2019-06-12', '14:22:32', 1, 3),
+(5, 2, 'Another test', 'here is some images like', '2019-06-12', '14:22:32', 2, 3),
 (6, 2, 'test post', 'some images', '2019-06-12', '14:39:54', 2, 2);
 
 -- --------------------------------------------------------
@@ -158,7 +198,7 @@ CREATE TABLE `profiles` (
   `dob` date DEFAULT NULL,
   `followers` int(11) NOT NULL DEFAULT 0,
   `following` int(11) NOT NULL DEFAULT 0,
-  `profile_photo` text DEFAULT './profile_images/profile-icon.png'
+  `profile_photo` text DEFAULT '\'profile-icon.png\''
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -166,8 +206,8 @@ CREATE TABLE `profiles` (
 --
 
 INSERT INTO `profiles` (`id`, `users_id`, `bio`, `works`, `address`, `phone`, `dob`, `followers`, `following`, `profile_photo`) VALUES
-(1, 2, 'here is an introduction of me', 'Intern', 'Kolkata, India', NULL, NULL, 1, 0, './profile_images/profile-icon.png'),
-(2, 3, NULL, NULL, NULL, NULL, NULL, 0, 1, './profile_images/profile-icon.png');
+(1, 2, 'here is an introduction of me', 'Intern', 'Kolkata, India', NULL, NULL, 1, 1, 'profile-icon.png'),
+(2, 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 'profile-icon.png');
 
 -- --------------------------------------------------------
 
@@ -191,11 +231,20 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `name`, `email`, `password`, `verified`, `reg_time`) VALUES
 (2, 'kousik-mitra', 'Kousik Mitra', 'kousikmitra12@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 1, '2019-06-11 18:48:51'),
-(3, 'test-user', 'Test User', 'test@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 1, '2019-06-13 10:01:14');
+(3, 'test-user', 'Test User', 'test@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 1, '2019-06-13 10:01:14'),
+(4, 'test2', 'test user 2', 'test2@gmail.com', '123456', 1, '2019-06-14 06:41:43');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `chat`
+--
+ALTER TABLE `chat`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `users_id` (`users_id`),
+  ADD KEY `sent_to` (`sent_to`);
 
 --
 -- Indexes for table `comments`
@@ -255,6 +304,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `chat`
+--
+ALTER TABLE `chat`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
@@ -264,13 +319,13 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `followers`
 --
 ALTER TABLE `followers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `posts`
@@ -294,11 +349,18 @@ ALTER TABLE `profiles`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `chat`
+--
+ALTER TABLE `chat`
+  ADD CONSTRAINT `chat_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `chat_ibfk_2` FOREIGN KEY (`sent_to`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `comments`
